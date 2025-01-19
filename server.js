@@ -18,12 +18,7 @@ const remoteDB = process.env.DATABASE.replace(
 const DB = process.env.NODE_ENV === 'production' ? remoteDB : process.env.DATABASE_LOCAL
 
 mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  })
+  .connect(DB, {})
   .then(() => console.log('DB connection successful!'));
 
 const port = process.env.PORT || 3000;
