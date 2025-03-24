@@ -19,6 +19,14 @@ const transactionSchema = new mongoose.Schema({
   date: Date
 });
 
+transactionSchema.pre(/^find/, function(next) {
+  this.populate('user').populate({
+    path: 'product',
+    select: 'name'
+  });
+  next();
+});
+
 const Transaction = mongoose.model('Transaction', transactionSchema);
 
 module.exports = Transaction;
