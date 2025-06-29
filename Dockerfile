@@ -1,18 +1,18 @@
-# Dockerfile
+# Use Node.js LTS version
 FROM node:22
 
 # Set working directory
 WORKDIR /usr/src/app
 
-# Copy package files and install dependencies
+# Install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy rest of the app
+# Copy the rest of the app
 COPY . .
 
-# Expose port (same as used in your app)
+# Expose app port
 EXPOSE 3000
 
-# Start app
+# Start the app
 CMD ["npm", "start"]

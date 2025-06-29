@@ -15,7 +15,7 @@ const remoteDB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 );
 
-const DB = process.env.NODE_ENV === 'production' ? remoteDB : process.env.DATABASE_LOCAL
+const DB = process.env.NODE_ENV === 'production' ? remoteDB : process.env.DATABASE_DOCKER
 
 mongoose
   .connect(DB, {})
