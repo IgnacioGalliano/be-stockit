@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  stockit:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+    env_file: .env
+    depends_on:
+      - mongo
+      - minio
+    command: npm start
+
+  mongo:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"    # S3 API
+      - "9001:9001"    # Web UI
+    environment:
+      MINIO_ROOT_USER: nacho
+      MINIO_ROOT_PASSWORD: secret123456
+    volumes:
+      - minio_data:/data
+
+  mc:
+    image: minio/mc
+    container_name: minio_client
+    depends_on:
+      - minio
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "while true; do sleep 3600; done"
+    environment:
+      MINIO_ROOT_USER: nacho
+      MINIO_ROOT_PASSWORD: secret123456
+    networks:
+      - default
+
+volumes:
+  mongodb_data:
+  minio_data:
