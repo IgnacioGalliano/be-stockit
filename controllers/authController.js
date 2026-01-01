@@ -5,6 +5,7 @@ const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const sendEmail = require('./../utils/email');
+const verifyGoogleToken = require('./../utils/googleAuth');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -63,6 +64,37 @@ exports.login = catchAsync(async (req, res, next) => {
 
   // 3) If everything ok, send token to client
   createSendToken(user, 200, res);
+});
+
+exports.googleLogin = catchAsync(async (req, res, next) => {
+    const { token } = req.body;
+
+    if (!token) {
+      return next(new AppError('Google token is required', 400));
+    }
+
+    const payload = await verifyGoogleToken(token);
+
+    const { email, name, picture, sub: googleId } = payload;
+
+    // ) Fetch user
+    let user = await User.findOne({ email });
+
+    // ) If the user dosen't exist create a new one
+    if (!user) {
+      const randomPassword = crypto.randomBytes(32).toString("hex")
+      user = await User.create({
+        email,
+        name,
+        avatar: picture,
+        googleId,
+        password: randomPassword,
+        passwordConfirm: randomPassword
+      });
+    }
+
+    // ) If everything ok, send token to client
+    createSendToken(user, 200, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {

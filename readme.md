@@ -40,6 +40,8 @@ MINIO_USE_SSL=false
 JWT_SECRET=your-ultra-secure-and-ultra-long-secret
 JWT_EXPIRES_IN=90d
 JWT_COOKIE_EXPIRES_IN=90
+
+GOOGLE_CLIENT_ID=xxxxx.apps.googleusercontent.com // Google sign in
 ```
 
 ### 2. Run the project
@@ -62,4 +64,4 @@ The backend will be available on the configured port once all containers are up.
 
 ## Use the postman collections to interact with the API
 
-https://www.postman.com/ignaciogalliano/workspace/stockit/collection/9001181-bf104ce3-9f28-4080-8003-11687dd7fe76?action=share&source=copy-link&creator=9001181
+[Link To Postman] (https://www.postman.com/ignaciogalliano/workspace/stockit/collection/9001181-bf104ce3-9f28-4080-8003-11687dd7fe76?action=share&source=copy-link&creator=9001181)
