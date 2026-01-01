@@ -64,4 +64,4 @@ The backend will be available on the configured port once all containers are up.
 
 ## Use the postman collections to interact with the API
 
-[Link To Postman] (https://www.postman.com/ignaciogalliano/workspace/stockit/collection/9001181-bf104ce3-9f28-4080-8003-11687dd7fe76?action=share&source=copy-link&creator=9001181)
+[Link To Postman](https://www.postman.com/ignaciogalliano/workspace/stockit/collection/9001181-bf104ce3-9f28-4080-8003-11687dd7fe76?action=share&source=copy-link&creator=9001181)
